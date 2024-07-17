@@ -31,6 +31,7 @@
             var member = null;
             document.addEventListener('DOMContentLoaded', function(){
                 member = JSON.parse(sessionStorage.getItem("member"));
+                console.log(member.id)
                 document.getElementById("email").value = memberEmail;
                 if(member.sla == 1) {
                     document.getElementById("serviceLevelAgreement").checked = true;
@@ -195,9 +196,22 @@
                 var oldPassword = document.getElementById('oldPassword').value;
                 var password = document.getElementById("password").value;
                 var repassword = document.getElementById("repassword").value;
+<<<<<<< HEAD
                 var ok = true;
                 if (document.getElementById("profileForm").checkValidity()) {
                     if (oldPassword != "" && password != "" && repassword != "") {
+=======
+                var passwordInput = document.getElementById("password");
+                var repasswordInput = document.getElementById("repassword");
+
+                var ok = true;
+                if (document.getElementById("profileForm").checkValidity()) {
+                    if (oldPassword !== "" && (password === "" || repassword === "")) {
+                        alert("Please fill in all values in password form");
+                        return;
+                    }
+                    if (oldPassword !== "" && password !== "" && repassword !== "") {
+>>>>>>> 5589003 (Edit password)
                         var memberData = {
                             id: member.id,
                             password: oldPassword
@@ -277,6 +291,45 @@
                             window.location.href = url + '?errMsg=Unable to Update.';
                         });
                     }
+<<<<<<< HEAD
+=======
+                    var data = {
+                        email: memberEmail,
+                        name: document.getElementById("name").value,
+                        phone: document.getElementById("phone").value,
+                        country: document.getElementById("country").value,
+                        address: document.getElementById("address").value,
+                        securityQuestion: document.getElementById("securityQuestion").value,
+                        securityAnswer: document.getElementById("securityAnswer").value,
+                        age: document.getElementById("age").value,
+                        income: document.getElementById("income").value,
+                        sla: document.getElementById("serviceLevelAgreement").checked ? 1 : 0,
+                        password: password
+                    };
+
+                    fetch(new Request('/api/updateMember', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + authToken
+                        },
+                        body: JSON.stringify(data)
+                    })).then(function (response) {
+                        return response.json();
+                    }).then(function (data) {
+                        // Update member's info in session storage
+                        sessionStorage.setItem("member", JSON.stringify(data));
+                        sessionStorage.setItem("memberEmail", data.email);
+                        sessionStorage.setItem("memberName", data.name);
+                        localStorage.setItem("memberDetailsExist", true);
+                        var url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?goodMsg=Successfully Updated!';
+                    }).catch(function (error) {
+                        console.log(error);
+                        var url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?errMsg=Unable to Update.';
+                    });
+>>>>>>> 5589003 (Edit password)
                 } // end if for document.getElementById("profileForm")
             } // end async function fubmit form
             // Check whether member details exist, if yes, display user info
@@ -637,11 +690,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>New Password<br/>Password to be at least 8 characters long.</label>
-                                            <input class="form-control" type="password" id="password" required>
+                                            <input class="form-control" type="password" id="password">
                                         </div>
                                         <div class="form-group">
                                             <label>Re-enter New Password</label>
-                                            <input class="form-control" type="password" id="repassword" required>
+                                            <input class="form-control" type="password" id="repassword">
                                         </div>
                                         <div class="panel-footer" style="padding-bottom: 0px;">
                                             <div class="row">
