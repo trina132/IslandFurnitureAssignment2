@@ -306,7 +306,7 @@
 
             var ok = true;
             if (document.getElementById("profileForm").checkValidity()) {
-                if (oldPassword !== "" && (password === "" || repassword === "")) {
+                if ((oldPassword !== "" && (password === "" || repassword === "")) || (password !== "" || repassword !== "")) {
                     alert("Please fill in all values in password form");
                     return;
                 }
