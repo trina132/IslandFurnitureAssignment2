@@ -29,6 +29,16 @@
                 console.log(error);
             });
 
+<<<<<<< HEAD
+            var member = null;
+            document.addEventListener('DOMContentLoaded', function(){
+                member = JSON.parse(sessionStorage.getItem("member"));
+                console.log(member.id)
+                document.getElementById("email").value = memberEmail;
+                if(member.sla == 1) {
+                    document.getElementById("serviceLevelAgreement").checked = true;
+                }
+=======
         var member = null;
         document.addEventListener('DOMContentLoaded', function () {
             member = JSON.parse(sessionStorage.getItem("member"));
@@ -36,6 +46,7 @@
             if (member.sla == 1) {
                 document.getElementById("serviceLevelAgreement").checked = true;
             }
+>>>>>>> 2fdda1f9369147d53b6caae44e827a720abfd4f3
 
             //Get Bought Items for sales history
             fetch(new Request('/api/getBoughtItem/' + member.id, {
@@ -296,6 +307,12 @@
                         income: document.getElementById("income").value,
                         sla: document.getElementById("serviceLevelAgreement").checked ? 1 : 0,
                         password: password
+<<<<<<< HEAD
+                    };
+
+                    fetch(new Request('/api/updateMember', {
+                        method: 'PUT',
+=======
 =======
         async function submitForm() {
             var oldPassword = document.getElementById('oldPassword').value;
@@ -319,10 +336,29 @@
 
                     await fetch(new Request('/api/verifyPassword', {
                         method: 'POST',
+>>>>>>> 2fdda1f9369147d53b6caae44e827a720abfd4f3
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization: 'Bearer ' + authToken
                         },
+<<<<<<< HEAD
+                        body: JSON.stringify(data)
+                    })).then(function (response) {
+                        return response.json();
+                    }).then(function (data) {
+                        // Update member's info in session storage
+                        sessionStorage.setItem("member", JSON.stringify(data));
+                        sessionStorage.setItem("memberEmail", data.email);
+                        sessionStorage.setItem("memberName", data.name);
+                        localStorage.setItem("memberDetailsExist", true);
+                        var url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?goodMsg=Successfully Updated!';
+                    }).catch(function (error) {
+                        console.log(error);
+                        var url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?errMsg=Unable to Update.';
+                    });
+=======
                         body: JSON.stringify(memberData)
                     })).then(function (response) {
                         return response.json();
@@ -350,6 +386,7 @@
                         ok = false;
                     });
 <<<<<<< HEAD
+>>>>>>> 2fdda1f9369147d53b6caae44e827a720abfd4f3
 >>>>>>> 5589003 (Edit password)
                 } // end if for document.getElementById("profileForm")
             } // end async function fubmit form
@@ -781,6 +818,31 @@
                                         <input style="cursor: pointer" type="checkbox" id="serviceLevelAgreement"
                                             value="agreement" />
 
+<<<<<<< HEAD
+                                            Allow us to use your particulars to serve you better?
+                                            <br/>Checking the box above indicates that you agree to our <a onclick="pdpaWindow()" style="cursor: pointer">personal data protection policy.</a>
+                                        </div>
+                                        <hr class="more-spaced "/>
+                                        <h4>Change Password</h4>
+                                        <div class="form-group">
+                                            <label>Old Password (leave blank unless setting a new password).</label>
+                                            <input class="form-control" type="password" id="oldPassword">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>New Password<br/>Password to be at least 8 characters long.</label>
+                                            <input class="form-control" type="password" id="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Re-enter New Password</label>
+                                            <input class="form-control" type="password" id="repassword">
+                                        </div>
+                                        <div class="panel-footer" style="padding-bottom: 0px;">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <input type="submit" onclick="submitForm()" value="Submit" class="btn btn-primary"/>
+                                                    <input type="reset" value="Reset" class="btn btn-primary"/>
+                                                </div>
+=======
                                         Allow us to use your particulars to serve you better?
                                         <br />Checking the box above indicates that you agree to our <a
                                             onclick="pdpaWindow()" style="cursor: pointer">personal data protection
@@ -806,6 +868,7 @@
                                                 <input type="submit" onclick="submitForm()" value="Submit"
                                                     class="btn btn-primary" />
                                                 <input type="reset" value="Reset" class="btn btn-primary" />
+>>>>>>> 2fdda1f9369147d53b6caae44e827a720abfd4f3
                                             </div>
                                         </div>
                                     </div>
